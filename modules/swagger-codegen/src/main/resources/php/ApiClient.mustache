@@ -157,7 +157,7 @@ class ApiClient
         if ($this->config->getCurlConnectTimeout() != 0) {
             curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $this->config->getCurlConnectTimeout());
         }
-        
+
         // return the result on success, rather than just true
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
@@ -226,6 +226,10 @@ class ApiClient
 
         // obtain the HTTP response headers
         curl_setopt($curl, CURLOPT_HEADER, 1);
+
+        // Accept all encodings -  http://php.net/manual/en/function.curl-setopt.php
+        // allows automatic decompression of compressed content
+        curl_setopt($curl, CURLOPT_ENCODING, '');
 
         // Make the request
         $response = curl_exec($curl);
